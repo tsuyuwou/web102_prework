@@ -25,7 +25,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-<img src='https://gifyu.com/image/Svzfd' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='[https://gifyu.com/image/Svzfd](https://media1.tenor.com/images/7d6173419c029883c5c76a981136419f/tenor.gif?itemid=27312543)' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [EZGIF.COM](https://ezgif.com/video-to-gif/).
 
