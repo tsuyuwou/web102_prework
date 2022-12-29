@@ -29,6 +29,12 @@ body {
     color: black;
     width: 90%;
     margin: auto;
+    transform: scale(0.95);
+    transition: transform 0.5s;
+}
+
+.stats-container:hover {
+    transform: scale(1.05);
 }
 
 .stats-card {
