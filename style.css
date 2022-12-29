@@ -2,7 +2,9 @@
 
 body {
     font-family: 'Cabin';
-    background-color: #758190;
+    background-color: black;
+    text-align: center;
+    color: white;
 }
 
 #tentacles {
@@ -17,12 +19,16 @@ body {
     margin-left: -10px;
     margin-right: -10px;
     margin-top: -10px;
+    color: black;
 }
 
 .stats-container {
     display: flex;
     align-items: center;
     cursor: pointer;
+    color: black;
+    width: 90%;
+    margin: auto;
 }
 
 .stats-card {
@@ -32,10 +38,13 @@ body {
     margin: 1%;
     width: 100%;
     text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.5s;
+    font-size: 120%;
 }
 
 .stats-card:hover {
-    box-shadow: 0 0 30px lightblue;
+    transform: scale(1.05);
 }
 
 #num-contributions, #total-raised, #num-games {
@@ -43,9 +52,11 @@ body {
 }
 
 #games-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    margin: auto;
+    width: 95%;
 }
 
 .game-img {
@@ -58,14 +69,32 @@ body {
     background-color: #FFFFFF;
     padding: 1%;
     margin: 1%;
-    width: 300px;
+    width: 100%;
     text-align: center;
     border-radius: 7px;
+    transform: scale(1);
+    transition: transform 1s;
+    position: relative;
+    z-index: 1;
+    background-color: black;
+    color: white;
 }
 
 .game-card:hover {
     cursor: pointer;
     box-shadow: 0 0 30px lightblue;
+    transform: scale(1.2);
+    z-index: 2;
+    background-color: white;
+    color: black;
+}
+
+.game-card:not(:hover) {
+    transition: transform 1s, color 1s ease-in-out, background-color 1s ease-in-out;
+}
+
+.game-card progress {
+    width: 80%;
 }
 
 #button-container {
@@ -78,10 +107,15 @@ button {
     padding: 1%;
     margin: 1%;
     border-radius: 7px;
+    transform: scale(1);
+    transition: transform 0.5s;
+    position: relative;
+    z-index: 1;
 }
 
-button:not(.highlighted):hover {
-    box-shadow: 0 0 30px lightblue;
+button:hover {
+    transform: scale(1.2);
+    z-index: 2;
 }
 
 .highlighted {

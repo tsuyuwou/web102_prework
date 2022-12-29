@@ -25,6 +25,11 @@ function deleteChildElements(parent) {
 // grab the element with the id games-container
 const gamesContainer = document.getElementById("games-container");
 
+// make string with currency symbol and comma-separated digits
+function makeCurrencyStr(amount) {
+    return amount.toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0});
+}
+
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
 
@@ -44,10 +49,10 @@ function addGamesToPage(games) {
         const display = `
             <img src = ${games[i].img} width=100%>
             <h3> ${games[i].name} </h3>
-            <p> Raised ${games[i].pledged.toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0, currencyDisplay:"code"})} </p>
+            <p> Raised ${makeCurrencyStr(games[i].pledged)} out of ${makeCurrencyStr(games[i].goal)} </p>
+            <progress id="progress" value="${games[i].pledged / games[i].goal * 100}" max="100"></progress>
             <p> ${games[i].description} </p>
         `;
-
         element.innerHTML = display;
 
         // append the game to the games-container
@@ -75,7 +80,7 @@ const raisedCard = document.getElementById("total-raised");
 const totalAmount = GAMES_JSON.reduce((acc, game) => acc + game.pledged, 0);
 
 // set inner HTML using template literal
-raisedCard.innerHTML = `<h3> ${totalAmount.toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0, currencyDisplay:"code"})} </h3>`;
+raisedCard.innerHTML = `<h3> ${makeCurrencyStr(totalAmount)} </h3>`;
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
@@ -156,9 +161,9 @@ const descriptionContainer = document.getElementById("description-container");
 const underfundedCount = GAMES_JSON.filter(game => game.pledged < game.goal).length;
 
 // create a string that explains the number of unfunded games using the ternary operator
-const statusStr = `A total of ${totalAmount.toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0, currencyDisplay:"code"})} 
-                   has been raised for ${GAMES_JSON.length} games. Currently, ${underfundedCount} game${underfundedCount == 1? " remains" : "s remain"} 
-                   underfunded. We need your help funding these amazing games!`
+const statusStr = `A total of ${makeCurrencyStr(totalAmount)} has been raised for ${GAMES_JSON.length} games. 
+                   Currently, ${underfundedCount} game${underfundedCount == 1? " remains" : "s remain"} underfunded. 
+                   We need your help funding these amazing games!`
 
 // create a new DOM element containing the template string and append it to the description container
 descriptionContainer.append(statusStr);
