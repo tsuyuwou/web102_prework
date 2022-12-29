@@ -17,15 +17,15 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [x] When the page loads, the button for all games is preselected, so the button is solid and all games are displayed.
-* [x] Selected buttons become solid and the rest become ghosts.
-* [x] When hovering over the buttons, the solid button is not highlighed, but the rest are.
+* [x] When the page loads, the button for all games is preselected, so the button is solid and all games are displayed. Selected buttons become solid and the rest become ghosts.
+* [x] When hovering over a game, the game pops out with contrasting colors from the background.
+* [x] A progress bar visually shows how much more funding is required for each game.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented features:
 
-<img src='https://media1.tenor.com/images/7d6173419c029883c5c76a981136419f/tenor.gif?itemid=27312543' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://media.giphy.com/media/cinMLXkTPmJXLT8RQo/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [EZGIF.COM](https://ezgif.com/video-to-gif/).
 
