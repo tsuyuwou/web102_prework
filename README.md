@@ -4,7 +4,7 @@ Submitted by: **Timmy Susai Rajan**
 
 **Sea Monster Crowdfunding** is a website for the company Sea Monster Crowdfunding that displays information about the games they have funded.
 
-Time spent: **8** hours spent in total
+Time spent: **15** hours spent in total
 
 ## Required Features
 
