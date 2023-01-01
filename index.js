@@ -27,11 +27,13 @@ const gamesContainer = document.getElementById("games-container");
 
 // make string with currency symbol and comma-separated digits
 function makeCurrencyStr(amount) {
-    return amount.toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0});
+    return amount.toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0, currencyDisplay:"code"});
 }
 
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
+    var pledges =  new Array(games.length);
+    var goals =  new Array(games.length);
 
     // loop over each item in the data
     for (let i = 0; i < games.length; ++i) {
@@ -46,18 +48,32 @@ function addGamesToPage(games) {
         // about each game
         // TIP: if your images are not displaying, make sure there is space
         // between the end of the src attribute and the end of the tag ("/>")
+        var progressBar = document.createElement("div");
+        progressBar.classList.add("progress-bar");
+        progressBar.innerHTML = `&nbsp;${Math.round(games[i].pledged / games[i].goal * 100)}%`;
+        progressBar.style.width = `${Math.min(100, games[i].pledged / games[i].goal * 100)}%`;
+
+        var amountString = document.createElement("p");
+        amountString.classList.add("amt-counter");
+        amountString.innerHTML = `Raised ${makeCurrencyStr(games[i].pledged)} out of ${makeCurrencyStr(games[i].goal)}`;
+
         const display = `
-            <img src = ${games[i].img} width=100%>
-            <h3> ${games[i].name} </h3>
-            <p> Raised ${makeCurrencyStr(games[i].pledged)} out of ${makeCurrencyStr(games[i].goal)} </p>
-            <progress id="progress" value="${games[i].pledged / games[i].goal * 100}" max="100"></progress>
-            <p> ${games[i].description} </p>
+            <img class="game-img" src = ${games[i].img} width=100%>
+            <h2> <span class="bound">${games[i].name} </h2>
+            ${amountString.outerHTML}
+            ${progressBar.outerHTML}
+            <p> <span class="bound">${games[i].description} </p>
         `;
         element.innerHTML = display;
 
         // append the game to the games-container
         gamesContainer.append(element);
+
+        pledges[i] = games[i].pledged;
+        goals[i] = games[i].goal;
     }
+
+    return [pledges, goals];
 }
 
 /*************************************************************************************
@@ -92,6 +108,64 @@ gamesCard.innerHTML = `<h3> ${GAMES_JSON.length} </h3>`;
  * Skills used: functions, filter
 */
 
+// select each button in the "Our Games" section
+const unfundedBtn = document.getElementById("unfunded-btn");
+const fundedBtn = document.getElementById("funded-btn");
+const allBtn = document.getElementById("all-btn");
+
+// animate progress bar
+var mouseLeft = new Array(GAMES_JSON.length).fill(false);
+var progressComplete = new Array(GAMES_JSON.length).fill(false);
+var gameCards = document.querySelectorAll(".game-card");
+var progressBars = document.querySelectorAll(".progress-bar");
+var amountStrings = document.querySelectorAll(".amt-counter");
+
+function animateProgress(pledges, goals) {
+    for (let i = 0; i < gameCards.length; i++) {
+        gameCards[i].addEventListener("mouseenter", function() {
+            var progress = 0, progress100 = 0;
+            var percent = pledges[i] / goals[i] * 100;
+            var percent100 = Math.min(100, percent);
+            var pledge = 0, goal = 0;
+            var interval = setInterval(function() {
+                if (mouseLeft[i] == false) {
+                    if (progress100 >= percent100) {
+                        progressBars[i].style.width = percent100 + "%";
+                        progressBars[i].innerHTML = `&nbsp;${Math.round(percent)}%`;
+                        amountStrings[i].innerHTML = `Raised ${makeCurrencyStr(pledges[i])} out of ${makeCurrencyStr(goals[i])}`;
+                        clearInterval(interval);
+                        progressComplete[i] = true;
+                    }
+                    else {
+                        progressBars[i].style.width = progress100 + "%";
+                        progressBars[i].innerHTML = `&nbsp;${Math.round(progress)}%`;
+                        amountStrings[i].innerHTML = `Raised ${makeCurrencyStr(pledge)} out of ${makeCurrencyStr(goal)}`;
+                        progress100 += percent100 / 80;
+                        progress += percent / 80;
+                        pledge += pledges[i] / 80;
+                        goal += goals[i] / 80;
+                    }
+                }
+                else {
+                    clearInterval(interval);
+                    mouseLeft[i] = false;
+                }
+            }, 10);
+        });
+        gameCards[i].addEventListener("mouseleave", function() {
+            mouseLeft[i] = true;
+            var percent = pledges[i] / goals[i] * 100;
+            progressBars[i].style.width = Math.min(100, percent) + "%";
+            progressBars[i].innerHTML = `&nbsp;${Math.round(percent)}%`;
+            amountStrings[i].innerHTML = `Raised ${makeCurrencyStr(pledges[i])} out of ${makeCurrencyStr(goals[i])}`;
+            if ((mouseLeft[i] == true) && (progressComplete[i] == true)) {
+                mouseLeft[i] = false;
+                progressComplete[i] = false;
+            }
+        });
+    }
+}
+
 // show only games that do not yet have enough funding
 function filterUnfundedOnly() {
     deleteChildElements(gamesContainer);
@@ -100,7 +174,14 @@ function filterUnfundedOnly() {
     let underfundedGames = GAMES_JSON.filter(game => game.pledged < game.goal);
 
     // use the function we previously created to add the unfunded games to the DOM
-    addGamesToPage(underfundedGames);
+    let [pledges, goals] = addGamesToPage(underfundedGames);
+
+    mouseLeft = new Array(underfundedGames.length).fill(false);
+    progressComplete = new Array(underfundedGames.length).fill(false);
+    gameCards = document.querySelectorAll(".game-card");
+    progressBars = document.querySelectorAll(".progress-bar");
+    amountStrings = document.querySelectorAll(".amt-counter");
+    animateProgress(pledges, goals);
 }
 
 // show only games that are fully funded
@@ -111,7 +192,14 @@ function filterFundedOnly() {
     let fullyFundedGames = GAMES_JSON.filter(game => game.pledged >= game.goal);
 
     // use the function we previously created to add unfunded games to the DOM
-    addGamesToPage(fullyFundedGames);
+    let [pledges, goals] = addGamesToPage(fullyFundedGames);
+
+    mouseLeft = new Array(fullyFundedGames.length).fill(false);
+    progressComplete = new Array(fullyFundedGames.length).fill(false);
+    gameCards = document.querySelectorAll(".game-card");
+    progressBars = document.querySelectorAll(".progress-bar");
+    amountStrings = document.querySelectorAll(".amt-counter");
+    animateProgress(pledges, goals);
 }
 
 // show all games
@@ -119,17 +207,19 @@ function showAllGames() {
     deleteChildElements(gamesContainer);
 
     // add all games from the JSON data to the DOM
-    addGamesToPage(GAMES_JSON);
+    let [pledges, goals] = addGamesToPage(GAMES_JSON);
+
+    mouseLeft = new Array(GAMES_JSON.length).fill(false);
+    progressComplete = new Array(GAMES_JSON.length).fill(false);
+    gameCards = document.querySelectorAll(".game-card");
+    progressBars = document.querySelectorAll(".progress-bar");
+    amountStrings = document.querySelectorAll(".amt-counter");
+    animateProgress(pledges, goals);
 }
 
-// select each button in the "Our Games" section
-const unfundedBtn = document.getElementById("unfunded-btn");
-const fundedBtn = document.getElementById("funded-btn");
-const allBtn = document.getElementById("all-btn");
-
-// preselect allBtn when the page loads
+// show all games when page loads
 allBtn.classList.add('highlighted');
-addGamesToPage(GAMES_JSON);
+showAllGames();
 
 // add event listeners with the correct functions to each button
 const buttons = document.querySelectorAll('.button-highlight');
