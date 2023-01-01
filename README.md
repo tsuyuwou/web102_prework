@@ -25,7 +25,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-<img src='/Users/tsuyuou/Downloads/ezgif-3-5173444a01.gif' title='Video Walkthrough' alt='Video Walkthrough' />
+![](https://github.com/tsuyuwou/web102_prework/blob/main/ezgif-3-5173444a01.gif)
 
 GIF created with [EZGIF.COM](https://ezgif.com/video-to-gif/).
 
