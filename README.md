@@ -4,7 +4,7 @@ Submitted by: **Timmy Susai Rajan**
 
 **Sea Monster Crowdfunding** is a website for the company Sea Monster Crowdfunding that displays information about the games they have funded.
 
-Time spent: **15** hours spent in total
+Time spent: **30** hours spent in total
 
 ## Required Features
 
@@ -19,19 +19,19 @@ The following **optional** features are implemented:
 
 * [x] When the page loads, the button for all games is preselected, so the button is solid and all games are displayed. Selected buttons become solid and the rest become ghosts.
 * [x] When hovering over a game, the game pops out with contrasting colors from the background.
-* [x] A progress bar visually shows how much more funding is required for each game.
+* [x] A progress bar visually shows how much funding has been pledged for each game.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented features:
 
-<img src='https://media1.tenor.com/images/5fe8ee2213ea685c855b8133327d03f9/tenor.gif?itemid=27317328' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://media1.tenor.com/images/24232817fd6a65d2e8b25019e187ddf2/tenor.gif?itemid=27329457' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [EZGIF.COM](https://ezgif.com/video-to-gif/).
 
 ## License
 
-    Copyright [2022] [Timmy Susai Rajan]
+    Copyright [2023] [Timmy Susai Rajan]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
