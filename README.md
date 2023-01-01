@@ -25,7 +25,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-<img src='https://im3.ezgif.com/tmp/ezgif-3-5173444a01.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://im3.ezgif.com/tmp/ezgif-3-5173444a01.gif' title='Video Walkthrough' alt='Video Walkthrough' />
 
 GIF created with [EZGIF.COM](https://ezgif.com/video-to-gif/).
 
