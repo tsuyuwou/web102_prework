@@ -52,15 +52,10 @@ function addGamesToPage(games) {
         progressBar.classList.add("progress-bar");
         progressBar.innerHTML = `&nbsp;${Math.round(games[i].pledged / games[i].goal * 100)}%`;
         progressBar.style.width = `${Math.min(100, games[i].pledged / games[i].goal * 100)}%`;
-
-        var amountString = document.createElement("p");
-        amountString.classList.add("amt-counter");
-        amountString.innerHTML = `Raised ${makeCurrencyStr(games[i].pledged)} out of ${makeCurrencyStr(games[i].goal)}`;
-
         const display = `
             <img class="game-img" src = ${games[i].img} width=100%>
             <h2> <span class="bound">${games[i].name} </h2>
-            ${amountString.outerHTML}
+            <p> Raised ${makeCurrencyStr(games[i].pledged)} out of ${makeCurrencyStr(games[i].goal)} </p>
             ${progressBar.outerHTML}
             <p> <span class="bound">${games[i].description} </p>
         `;
@@ -100,7 +95,7 @@ raisedCard.innerHTML = `<h3> ${makeCurrencyStr(totalAmount)} </h3>`;
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
-gamesCard.innerHTML = `<h3> ${GAMES_JSON.length} </h3>`;
+gamesCard.innerHTML = `<h3> ${GAMES_JSON.length.toLocaleString('en-US')} </h3>`;
 
 /*************************************************************************************
  * Challenge 5: Add functions to filter the funded and unfunded games
@@ -114,52 +109,45 @@ const fundedBtn = document.getElementById("funded-btn");
 const allBtn = document.getElementById("all-btn");
 
 // animate progress bar
-var mouseLeft = new Array(GAMES_JSON.length).fill(false);
+var mouseLeftGame = new Array(GAMES_JSON.length).fill(false);
 var progressComplete = new Array(GAMES_JSON.length).fill(false);
 var gameCards = document.querySelectorAll(".game-card");
 var progressBars = document.querySelectorAll(".progress-bar");
-var amountStrings = document.querySelectorAll(".amt-counter");
 
-function animateProgress(pledges, goals) {
+function animateProgressBar(pledges, goals) {
     for (let i = 0; i < gameCards.length; i++) {
         gameCards[i].addEventListener("mouseenter", function() {
             var progress = 0, progress100 = 0;
             var percent = pledges[i] / goals[i] * 100;
             var percent100 = Math.min(100, percent);
-            var pledge = 0, goal = 0;
             var interval = setInterval(function() {
-                if (mouseLeft[i] == false) {
+                if (mouseLeftGame[i] == false) {
                     if (progress100 >= percent100) {
                         progressBars[i].style.width = percent100 + "%";
                         progressBars[i].innerHTML = `&nbsp;${Math.round(percent)}%`;
-                        amountStrings[i].innerHTML = `Raised ${makeCurrencyStr(pledges[i])} out of ${makeCurrencyStr(goals[i])}`;
                         clearInterval(interval);
                         progressComplete[i] = true;
                     }
                     else {
                         progressBars[i].style.width = progress100 + "%";
                         progressBars[i].innerHTML = `&nbsp;${Math.round(progress)}%`;
-                        amountStrings[i].innerHTML = `Raised ${makeCurrencyStr(pledge)} out of ${makeCurrencyStr(goal)}`;
                         progress100 += percent100 / 80;
                         progress += percent / 80;
-                        pledge += pledges[i] / 80;
-                        goal += goals[i] / 80;
                     }
                 }
                 else {
                     clearInterval(interval);
-                    mouseLeft[i] = false;
+                    mouseLeftGame[i] = false;
                 }
             }, 10);
         });
         gameCards[i].addEventListener("mouseleave", function() {
-            mouseLeft[i] = true;
+            mouseLeftGame[i] = true;
             var percent = pledges[i] / goals[i] * 100;
             progressBars[i].style.width = Math.min(100, percent) + "%";
             progressBars[i].innerHTML = `&nbsp;${Math.round(percent)}%`;
-            amountStrings[i].innerHTML = `Raised ${makeCurrencyStr(pledges[i])} out of ${makeCurrencyStr(goals[i])}`;
-            if ((mouseLeft[i] == true) && (progressComplete[i] == true)) {
-                mouseLeft[i] = false;
+            if ((mouseLeftGame[i] == true) && (progressComplete[i] == true)) {
+                mouseLeftGame[i] = false;
                 progressComplete[i] = false;
             }
         });
@@ -176,12 +164,11 @@ function filterUnfundedOnly() {
     // use the function we previously created to add the unfunded games to the DOM
     let [pledges, goals] = addGamesToPage(underfundedGames);
 
-    mouseLeft = new Array(underfundedGames.length).fill(false);
+    mouseLeftGame = new Array(underfundedGames.length).fill(false);
     progressComplete = new Array(underfundedGames.length).fill(false);
     gameCards = document.querySelectorAll(".game-card");
     progressBars = document.querySelectorAll(".progress-bar");
-    amountStrings = document.querySelectorAll(".amt-counter");
-    animateProgress(pledges, goals);
+    animateProgressBar(pledges, goals);
 }
 
 // show only games that are fully funded
@@ -194,12 +181,11 @@ function filterFundedOnly() {
     // use the function we previously created to add unfunded games to the DOM
     let [pledges, goals] = addGamesToPage(fullyFundedGames);
 
-    mouseLeft = new Array(fullyFundedGames.length).fill(false);
+    mouseLeftGame = new Array(fullyFundedGames.length).fill(false);
     progressComplete = new Array(fullyFundedGames.length).fill(false);
     gameCards = document.querySelectorAll(".game-card");
     progressBars = document.querySelectorAll(".progress-bar");
-    amountStrings = document.querySelectorAll(".amt-counter");
-    animateProgress(pledges, goals);
+    animateProgressBar(pledges, goals);
 }
 
 // show all games
@@ -209,12 +195,11 @@ function showAllGames() {
     // add all games from the JSON data to the DOM
     let [pledges, goals] = addGamesToPage(GAMES_JSON);
 
-    mouseLeft = new Array(GAMES_JSON.length).fill(false);
+    mouseLeftGame = new Array(GAMES_JSON.length).fill(false);
     progressComplete = new Array(GAMES_JSON.length).fill(false);
     gameCards = document.querySelectorAll(".game-card");
     progressBars = document.querySelectorAll(".progress-bar");
-    amountStrings = document.querySelectorAll(".amt-counter");
-    animateProgress(pledges, goals);
+    animateProgressBar(pledges, goals);
 }
 
 // show all games when page loads
