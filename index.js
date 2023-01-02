@@ -109,7 +109,7 @@ const fundedBtn = document.getElementById("funded-btn");
 const allBtn = document.getElementById("all-btn");
 
 // animate progress bar
-var mouseLeftGame = new Array(GAMES_JSON.length).fill(false);
+var mouseLeft = new Array(GAMES_JSON.length).fill(false);
 var progressComplete = new Array(GAMES_JSON.length).fill(false);
 var gameCards = document.querySelectorAll(".game-card");
 var progressBars = document.querySelectorAll(".progress-bar");
@@ -121,7 +121,7 @@ function animateProgressBar(pledges, goals) {
             var percent = pledges[i] / goals[i] * 100;
             var percent100 = Math.min(100, percent);
             var interval = setInterval(function() {
-                if (mouseLeftGame[i] == false) {
+                if (mouseLeft[i] == false) {
                     if (progress100 >= percent100) {
                         progressBars[i].style.width = percent100 + "%";
                         progressBars[i].innerHTML = `&nbsp;${Math.round(percent)}%`;
@@ -137,17 +137,17 @@ function animateProgressBar(pledges, goals) {
                 }
                 else {
                     clearInterval(interval);
-                    mouseLeftGame[i] = false;
+                    mouseLeft[i] = false;
                 }
             }, 10);
         });
         gameCards[i].addEventListener("mouseleave", function() {
-            mouseLeftGame[i] = true;
+            mouseLeft[i] = true;
             var percent = pledges[i] / goals[i] * 100;
             progressBars[i].style.width = Math.min(100, percent) + "%";
             progressBars[i].innerHTML = `&nbsp;${Math.round(percent)}%`;
-            if ((mouseLeftGame[i] == true) && (progressComplete[i] == true)) {
-                mouseLeftGame[i] = false;
+            if ((mouseLeft[i] == true) && (progressComplete[i] == true)) {
+                mouseLeft[i] = false;
                 progressComplete[i] = false;
             }
         });
@@ -164,7 +164,7 @@ function filterUnfundedOnly() {
     // use the function we previously created to add the unfunded games to the DOM
     let [pledges, goals] = addGamesToPage(underfundedGames);
 
-    mouseLeftGame = new Array(underfundedGames.length).fill(false);
+    mouseLeft = new Array(underfundedGames.length).fill(false);
     progressComplete = new Array(underfundedGames.length).fill(false);
     gameCards = document.querySelectorAll(".game-card");
     progressBars = document.querySelectorAll(".progress-bar");
@@ -181,7 +181,7 @@ function filterFundedOnly() {
     // use the function we previously created to add unfunded games to the DOM
     let [pledges, goals] = addGamesToPage(fullyFundedGames);
 
-    mouseLeftGame = new Array(fullyFundedGames.length).fill(false);
+    mouseLeft = new Array(fullyFundedGames.length).fill(false);
     progressComplete = new Array(fullyFundedGames.length).fill(false);
     gameCards = document.querySelectorAll(".game-card");
     progressBars = document.querySelectorAll(".progress-bar");
@@ -195,7 +195,7 @@ function showAllGames() {
     // add all games from the JSON data to the DOM
     let [pledges, goals] = addGamesToPage(GAMES_JSON);
 
-    mouseLeftGame = new Array(GAMES_JSON.length).fill(false);
+    mouseLeft = new Array(GAMES_JSON.length).fill(false);
     progressComplete = new Array(GAMES_JSON.length).fill(false);
     gameCards = document.querySelectorAll(".game-card");
     progressBars = document.querySelectorAll(".progress-bar");
