@@ -25,7 +25,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-![](https://github.com/tsuyuwou/web102_prework/blob/main/ezgif-3-5173444a01.gif)
+![](https://github.com/tsuyuwou/web102_prework/blob/main/ezgif.com-gif-maker.gif)
 
 GIF created with [EZGIF.COM](https://ezgif.com/video-to-gif/).
 
