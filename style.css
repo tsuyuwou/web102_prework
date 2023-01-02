@@ -29,7 +29,7 @@ body {
     width: 90%;
     margin: auto;
     transform: scale(0.9);
-    transition: transform 0.5s;
+    transition: transform 1s;
 }
 
 .stats-container:hover {
@@ -44,7 +44,7 @@ body {
     width: 100%;
     text-align: center;
     transform: scale(0.95);
-    transition: transform 0.5s;
+    transition: transform 1s;
     font-size: 120%;
 }
 
@@ -110,8 +110,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     margin: auto;
     width: 95%;
-    margin-bottom: 40px;
-    margin-top: 40px;
+    margin-bottom: 50px;
 }
 
 button {
@@ -121,14 +120,18 @@ button {
     margin: 1%;
     border-radius: 7px;
     transform: scale(1);
-    transition: transform 0.5s, font-size 0.5s;
+    transition: transform 1s, font-size 1s;
     font-size: 120%;
+    transform-origin: top;
 }
 
 button:hover {
-    cursor: pointer;
     transform: scale(1, 2);
-    font-size: 120%;
+    font-size: 180%;
+}
+
+button:not(.highlighted):hover {
+    cursor: pointer;
 }
 
 .highlighted {
