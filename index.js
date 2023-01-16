@@ -203,24 +203,22 @@ function showAllGames() {
 }
 
 // show all games when page loads
-allBtn.classList.add('highlighted');
 showAllGames();
 
 // add event listeners with the correct functions to each button
-const buttons = document.querySelectorAll('.button-highlight');
-unfundedBtn.addEventListener("click", event => {
-    buttons.forEach(b => b.classList.remove('highlighted'));
-    event.target.classList.add('highlighted');
+unfundedBtn.addEventListener("click", function() {
+    var marker = document.getElementById("marker");
+    marker.style.transform = `translate(0, 0)`;
     filterUnfundedOnly();
 });
-fundedBtn.addEventListener("click", event => {
-    buttons.forEach(b => b.classList.remove('highlighted'));
-    event.target.classList.add('highlighted');
+fundedBtn.addEventListener("click", function() {
+    var marker = document.getElementById("marker");
+    marker.style.transform = `translate(100%, 0)`;
     filterFundedOnly();
 });
-allBtn.addEventListener("click", event => {
-    buttons.forEach(b => b.classList.remove('highlighted'));
-    event.target.classList.add('highlighted');
+allBtn.addEventListener("click", function() {
+    var marker = document.getElementById("marker");
+    marker.style.transform = `translate(200%, 0)`;
     showAllGames();
 });
 
