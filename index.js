@@ -209,16 +209,22 @@ showAllGames();
 unfundedBtn.addEventListener("click", function() {
     var marker = document.getElementById("marker");
     marker.style.transform = `translate(0, 0)`;
+    marker.style.borderBottomLeftRadius = "6px";
+    marker.style.borderBottomRightRadius = "0px";
     filterUnfundedOnly();
 });
 fundedBtn.addEventListener("click", function() {
     var marker = document.getElementById("marker");
     marker.style.transform = `translate(100%, 0)`;
+    marker.style.borderBottomLeftRadius = "0px";
+    marker.style.borderBottomRightRadius = "0px";
     filterFundedOnly();
 });
 allBtn.addEventListener("click", function() {
     var marker = document.getElementById("marker");
     marker.style.transform = `translate(200%, 0)`;
+    marker.style.borderBottomLeftRadius = "0px";
+    marker.style.borderBottomRightRadius = "6px";
     showAllGames();
 });
 

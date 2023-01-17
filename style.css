@@ -81,7 +81,6 @@ body {
     position: relative;
     z-index: 1;
     color: white;
-    cursor: default;
 }
 
 .game-card:hover {
@@ -109,19 +108,32 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: auto;
-    width: 63%;
+    width: 40%;
     margin-top: 35px;
     margin-bottom: 60px;
     transform: scale(1.5);
     border-bottom: 6px solid rgb(173, 216, 230, 0.5);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 button {
     border: none;
-    padding: 1%;
+    padding: 2%;
     background-color: lightblue;
     border-left: 0.5px solid black;
     border-right: 0.5px solid black;
+    margin-bottom: -2px;
+}
+
+button:nth-child(1) {
+    border-top-left-radius: 6px;
+    border-left: 0;
+}
+
+button:nth-child(3) {
+    border-top-right-radius: 6px;
+    border-right: 0;
 }
 
 button:hover {
@@ -136,16 +148,23 @@ button:hover {
     width: 100%;
     transform: translate(200%, 0);
     transition: all 0.35s;
+    border-bottom-right-radius: 6px;
 }
 
 #button-container button:nth-child(1):hover ~ #marker {
     transform: translate(0, 0) !important;
+    border-bottom-left-radius: 6px !important;
+    border-bottom-right-radius: 0px !important;
 }
 
 #button-container button:nth-child(2):hover ~ #marker {
     transform: translate(100%, 0) !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
 }
 
 #button-container button:nth-child(3):hover ~ #marker {
     transform: translate(200%, 0) !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 6px !important;
 }
