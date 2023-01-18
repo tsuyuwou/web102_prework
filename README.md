@@ -17,7 +17,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [x] When the page loads, the button for all games is preselected, so the button is solid and all games are displayed. Selected buttons become solid and the rest become ghosts.
+* [x] When the page loads, the button for all games is preselected, so the button is marked and all games are displayed.
 * [x] When hovering over a game, the game pops out with contrasting colors from the background.
 * [x] A progress bar visually shows how much funding has been pledged for each game.
 
